@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IceLink — Find Your People Before Uni Begins</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f4f7ff;
+            --surface: #ffffff;
+            --surface-soft: rgba(255, 255, 255, 0.65);
+            --text: #18233f;
+            --muted: #5e6c90;
+            --primary: #397df6;
+            --primary-dark: #1c5fe0;
+            --secondary: #021a91;
+            --accent: #8fe9ff;
+            --line: rgba(24, 35, 63, 0.08);
+            --shadow-lg: 0 30px 80px rgba(60, 92, 185, 0.18);
+            --shadow-md: 0 16px 40px rgba(43, 80, 180, 0.14);
+            --radius-xl: 32px;
+            --radius-lg: 22px;
+            --radius-md: 16px;
+            --container: 1180px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #DEF6FF;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(var(--container), calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        .site-shell {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-shell::before,
+        .site-shell::after {
+            content: "";
+            position: absolute;
+            border-radius: 999px;
+            filter: blur(12px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .site-shell::before {
+            width: 420px;
+            height: 420px;
+            background: radial-gradient(circle, rgba(123, 97, 255, 0.2), transparent 65%);
+            top: 60px;
+            right: -100px;
+        }
+
+        .site-shell::after {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(57, 125, 246, 0.18), transparent 65%);
+            left: -80px;
+            bottom: 160px;
+        }
+
+        header,
+        main,
+        footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-wrap {
+            padding: 24px 0 8px;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 18px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            background: rgba(255, 255, 255, 0.56);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(78, 104, 186, 0.08);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -0.03em;
+        }
+
+        .brand-badge {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: grid;
+            place-items: center;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: none;
+            border-radius: 16px;
+            padding: 14px 22px;
+            font: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            color: white;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            box-shadow: 0 16px 30px rgba(88, 102, 241, 0.26);
+        }
+
+        .btn-secondary {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(24, 35, 63, 0.08);
+            box-shadow: 0 10px 24px rgba(73, 98, 173, 0.08);
+        }
+
+        .btn-ghost {
+            color: var(--muted);
+            background: transparent;
+            padding-inline: 10px;
+        }
+
+        .hero {
+            padding: 48px 0 78px;
+        }
+
+        .hero-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 42px;
+            padding: 72px 64px;
+            background:
+                radial-gradient(circle at top right, rgba(143, 233, 255, 0.32), transparent 25%),
+                linear-gradient(135deg, #021a91 0%, #021a91 38%, #63b4ff 100%);
+            box-shadow: var(--shadow-lg);
+            min-height: 680px;
+        }
+
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            top: -110px;
+            right: -120px;
+            width: 460px;
+            height: 260px;
+            border-radius: 0 0 0 140px;
+            background: rgba(255, 255, 255, 0.12);
+            filter: blur(2px);
+        }
+
+        .hero-card::after {
+            content: "";
+            position: absolute;
+            right: 160px;
+            bottom: -70px;
+            width: 360px;
+            height: 210px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 60% 40% 65% 35% / 45% 55% 45% 55%;
+            transform: rotate(-10deg);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            align-items: center;
+            gap: 48px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 22px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .hero-copy h1 {
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            line-height: 0.95;
+            letter-spacing: -0.06em;
+            color: white;
+            max-width: 10ch;
+            margin-bottom: 20px;
+        }
+
+        .hero-copy p {
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 1.1rem;
+            max-width: 520px;
+            margin-bottom: 28px;
+        }
+
+        .hero-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .hero-form input {
+            flex: 1 1 270px;
+            min-width: 0;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 18px;
+            padding: 16px 18px;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--text);
+            font: inherit;
+            box-shadow: 0 10px 24px rgba(24, 35, 63, 0.08);
+            outline: none;
+        }
+
+        .hero-form input::placeholder {
+            color: #8692b2;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            color: rgba(255, 255, 255, 0.86);
+            font-size: 0.95rem;
+            margin-top: 10px;
+        }
+
+        .hero-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-visual {
+            position: relative;
+            min-height: 520px;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 520px;
+            border-radius: 24px;
+            box-shadow: 0 30px 80px rgba(24, 35, 63, 0.25);
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .floating-card {
+            position: absolute;
+            left: 12px;
+            bottom: 30px;
+            max-width: 240px;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            border-radius: 22px;
+            padding: 16px;
+            box-shadow: 0 18px 42px rgba(24, 35, 63, 0.16);
+        }
+
+        .floating-card h4 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .mini-text {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .floating-stack {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .floating-pill {
+            font-size: 0.8rem;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: #eef4ff;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        section {
+            padding: 42px 0;
+        }
+
+        .section-head {
+            max-width: 680px;
+            margin: 0 auto 26px;
+            text-align: center;
+        }
+
+        .section-head h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1;
+            letter-spacing: -0.05em;
+            margin-bottom: 12px;
+        }
+
+        .section-head p {
+            color: var(--muted);
+            font-size: 1.03rem;
+        }
+
+        .logo-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .logo-box {
+            padding: 20px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(24, 35, 63, 0.06);
+            text-align: center;
+            color: #7582a5;
+            font-weight: 700;
+            box-shadow: 0 10px 24px rgba(71, 96, 170, 0.06);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card,
+        .showcase-card,
+        .step-card,
+        .testimonial,
+        .cta-banner {
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(24, 35, 63, 0.06);
+            border-radius: 28px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-card {
+            padding: 28px;
+        }
+
+        .icon-box {
+            width: 54px;
+            height: 54px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(123, 97, 255, 0.16), rgba(57, 125, 246, 0.18));
+            display: grid;
+            place-items: center;
+            font-size: 1.4rem;
+            margin-bottom: 18px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            letter-spacing: -0.03em;
+        }
+
+        .feature-card p {
+            color: var(--muted);
+        }
+
+        .showcase-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            padding: 28px;
+            align-items: center;
+        }
+
+        .showcase-copy h3 {
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            line-height: 1.02;
+            letter-spacing: -0.04em;
+            margin-bottom: 12px;
+        }
+
+        .showcase-copy p {
+            color: var(--muted);
+            margin-bottom: 22px;
+        }
+
+        .showcase-bullets {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .showcase-bullets span {
+            color: #32415f;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .showcase-ui {
+            border-radius: 24px;
+            padding: 20px;
+            background: linear-gradient(180deg, #edf4ff 0%, #f8fbff 100%);
+            border: 1px solid rgba(24, 35, 63, 0.06);
+        }
+
+        .quiz-card,
+        .message-stack,
+        .game-strip {
+            background: white;
+            border-radius: 20px;
+            padding: 18px;
+            box-shadow: 0 10px 24px rgba(67, 92, 166, 0.08);
+        }
+
+        .quiz-card+.message-stack,
+        .message-stack+.game-strip {
+            margin-top: 14px;
+        }
+
+        .bar-row {
+            display: grid;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .bar-row div {
+            height: 12px;
+            border-radius: 999px;
+            background: #e8eefc;
+            overflow: hidden;
+        }
+
+        .bar-row div i {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        }
+
+        .bar-row div:nth-child(1) i {
+            width: 82%;
+        }
+
+        .bar-row div:nth-child(2) i {
+            width: 58%;
+        }
+
+        .bar-row div:nth-child(3) i {
+            width: 73%;
+        }
+
+        .message-bubble {
+            padding: 12px 14px;
+            border-radius: 16px;
+            margin-top: 10px;
+            font-size: 0.92rem;
+        }
+
+        .message-bubble.left {
+            background: #f0f5ff;
+            color: #3a4a68;
+            width: 78%;
+        }
+
+        .message-bubble.right {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            margin-left: auto;
+            width: 68%;
+        }
+
+        .game-strip {
+            display: flex;
+            gap: 12px;
+            justify-content: space-between;
+        }
+
+        .mini-game {
+            flex: 1;
+            min-height: 88px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(123, 97, 255, 0.15), rgba(57, 125, 246, 0.14));
+            display: grid;
+            place-items: center;
+            text-align: center;
+            font-weight: 600;
+            color: #34415f;
+            padding: 10px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .step-card {
+            padding: 28px;
+        }
+
+        .step-number {
+            display: inline-flex;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .step-card h3 {
+            font-size: 1.28rem;
+            margin-bottom: 10px;
+            letter-spacing: -0.03em;
+        }
+
+        .step-card p {
+            color: var(--muted);
+        }
+
+        .testimonial-wrap {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .testimonial {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .stars {
+            letter-spacing: 0.3em;
+            font-size: 1.05rem;
+            color: #ffb84d;
+            margin-bottom: 18px;
+        }
+
+        .testimonial blockquote {
+            font-size: clamp(1.4rem, 3vw, 2.1rem);
+            line-height: 1.25;
+            letter-spacing: -0.04em;
+            margin-bottom: 18px;
+        }
+
+        .testimonial cite {
+            font-style: normal;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .cta-banner {
+            padding: 42px;
+            background:
+                radial-gradient(circle at right top, rgba(143, 233, 255, 0.45), transparent 25%),
+                linear-gradient(135deg, rgba(123, 97, 255, 0.12), rgba(57, 125, 246, 0.14));
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1;
+            letter-spacing: -0.05em;
+            margin-bottom: 12px;
+        }
+
+        .cta-banner p {
+            color: var(--muted);
+            max-width: 640px;
+            margin: 0 auto 22px;
+        }
+
+        footer {
+            padding: 18px 0 40px;
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 20px 6px 0;
+            color: var(--muted);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+
+        @media (max-width: 1100px) {
+
+            .hero-grid,
+            .showcase-card {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-copy h1 {
+                max-width: 12ch;
+            }
+
+            .hero-visual {
+                min-height: 620px;
+            }
+
+            .hero-image {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-left: auto;
+            }
+
+            .floating-card {
+                left: auto;
+                right: 24px;
+                bottom: 10px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+            }
+
+            .features-grid,
+            .steps-grid,
+            .logo-strip {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero-card {
+                padding: 48px 28px;
+                min-height: auto;
+            }
+
+            .hero-visual {
+                min-height: 560px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                width: min(var(--container), calc(100% - 24px));
+            }
+
+            .navbar {
+                padding: 14px 16px;
+            }
+
+            .nav-actions .btn-ghost {
+                display: none;
+            }
+
+            .brand span:last-child {
+                font-size: 1rem;
+            }
+
+            .hero {
+                padding-top: 28px;
+            }
+
+            .hero-card {
+                border-radius: 28px;
+                padding: 34px 18px;
+            }
+
+            .hero-form {
+                flex-direction: column;
+            }
+
+            .hero-form .btn {
+                width: 100%;
+            }
+
+            .features-grid,
+            .steps-grid,
+            .logo-strip,
+            .showcase-card {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-visual {
+                min-height: auto;
+            }
+
+            .hero-image,
+            .floating-card {
+                position: relative;
+                inset: auto;
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .floating-card {
+                margin-top: 16px;
+            }
+
+            .cta-banner,
+            .testimonial,
+            .feature-card,
+            .step-card,
+            .showcase-card {
+                padding: 22px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+            }
+
+            .brand {
+                display: flex;
+                align-items: center;
+                height: 42px;
+                overflow: hidden;
+            }
+
+            .logo {
+                height: 48px;
+                width: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="site-shell">
+        <header class="nav-wrap">
+            <div class="container">
+                <nav class="navbar">
+                    <a href="#" class="brand">
+                        <img src="images/logo_medium.png" alt="IceLink logo" class="logo">
+                    </a>
+
+                    <div class="nav-links">
+                        <a href="#features">Features</a>
+                        <a href="#showcase">How it Works</a>
+                        <a href="#testimonials">Stories</a>
+                        <a href="#cta">Get Started</a>
+                    </div>
+
+                    <div class="nav-actions">
+                        <a href="#" class="btn btn-ghost login-btn">Login</a>
+                        <a href="#cta" class="btn btn-primary login-btn">Sign up</a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-card">
+                        <div class="hero-grid">
+                            <div class="hero-copy">
+                                <div class="eyebrow"> Built for new students who want to connect faster</div>
+                                <h1>Find your people before uni begins.</h1>
+                                <p>
+                                    IceLink helps students discover their personality, meet compatible people,
+                                    and start conversations naturally through quizzes, games, and chatrooms.
+                                </p>
+
+                                <form class="hero-form">
+                                    <input type="email" placeholder="Enter your email address"
+                                        aria-label="Email address">
+                                    <button class="btn btn-primary quiz-btn" type="button">Start Quiz</button>
+                                    <button class="btn btn-secondary" type="button">Explore Games</button>
+                                </form>
+
+                                <div class="hero-meta">
+                                    <span>✓ Personality-based matching</span>
+                                    <span>✓ Safe interest-based chats</span>
+                                    <span>✓ Fun social icebreakers</span>
+                                </div>
+                            </div>
+
+                            <div class="hero-visual">
+                                <img src="images/screenshot.png" alt="IceLink app preview" class="hero-image">
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="section-head">
+                <h2>Made for the start of student life</h2>
+                <p>Designed to reduce awkward first contact and help people connect in a way that feels natural.</p>
+            </div>
+            <div class="logo-strip">
+                <div class="logo-box">Quiz-led matching</div>
+                <div class="logo-box">Interest chatrooms</div>
+                <div class="logo-box">Social mini-games</div>
+                <div class="logo-box">Freshers friendly</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <div class="section-head">
+                <h2>Why students use IceLink</h2>
+                <p>Everything is built to make meeting new people feel easier, safer, and more fun.</p>
+            </div>
+
+            <div class="features-grid">
+                <article class="feature-card">
+                    <div class="icon-box">🧠</div>
+                    <h3>Discover your type</h3>
+                    <p>Use a quick personality quiz to learn how you connect best and uncover shared traits with other
+                        students.</p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="icon-box">💬</div>
+                    <h3>Meet people naturally</h3>
+                    <p>Join themed chatrooms and start easy conversations around interests, course topics, and
+                        university life.</p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="icon-box">🎮</div>
+                    <h3>Break the ice with games</h3>
+                    <p>Mini-games and prompts take the pressure off introductions and make socialising feel more
+                        relaxed.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="showcase">
+        <div class="container">
+            <div class="showcase-card">
+                <div class="showcase-copy">
+                    <h3>A cleaner way to break the ice before day one.</h3>
+                    <p>
+                        Instead of forcing awkward introductions, IceLink gives students a structured,
+                        low-pressure way to discover who they click with.
+                    </p>
+                    <div class="showcase-bullets">
+                        <span>✓ Take a guided personality quiz in minutes</span>
+                        <span>✓ Get suggested matches based on shared traits and interests</span>
+                        <span>✓ Move straight into chatrooms, prompts, and games</span>
+                    </div>
+                    <a href="#cta" class="btn btn-primary quiz-btn">Take the quiz</a>
+                </div>
+
+                <div class="showcase-ui">
+                    <div class="quiz-card">
+                        <strong>Personality snapshot</strong>
+                        <div class="mini-text">Your social style is calm, curious, and collaborative.</div>
+                        <div class="bar-row">
+                            <div><i></i></div>
+                            <div><i></i></div>
+                            <div><i></i></div>
+                        </div>
+                    </div>
+
+                    <div class="message-stack">
+                        <strong>Starter conversation</strong>
+                        <div class="message-bubble left">What kind of people do you usually connect with first?</div>
+                        <div class="message-bubble right">Definitely people who like games and chilled hangouts.</div>
+                    </div>
+
+                    <div class="game-strip">
+                        <div class="mini-game">This or That</div>
+                        <div class="mini-game">Campus Bingo</div>
+                        <div class="mini-game">Two Truths</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="section-head">
+                <h2>How it works</h2>
+                <p>Three simple steps from sign-up to making your first connection.</p>
+            </div>
+
+            <div class="steps-grid">
+                <article class="step-card">
+                    <div class="step-number">01</div>
+                    <h3>Take the quiz</h3>
+                    <p>Answer a short set of questions about your interests, personality, and how you like to socialise.
+                    </p>
+                </article>
+
+                <article class="step-card">
+                    <div class="step-number">02</div>
+                    <h3>Get matched</h3>
+                    <p>Receive suggested people and communities based on compatibility, common interests, and shared
+                        energy.</p>
+                </article>
+
+                <article class="step-card">
+                    <div class="step-number">03</div>
+                    <h3>Join, chat, play</h3>
+                    <p>Start conversations through chatrooms and icebreaker games that make meeting people less
+                        intimidating.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="container testimonial-wrap">
+            <div class="testimonial">
+                <div class="stars">★★★★★</div>
+                <blockquote>
+                    “IceLink made starting uni feel less scary. I already knew people I could talk to before I even
+                    arrived on campus.”
+                </blockquote>
+                <cite>First-year student, media and communication</cite>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta">
+        <div class="container">
+            <div class="cta-banner">
+                <h2>Ready to meet your people?</h2>
+                <p>Start with the quiz, discover your social style, and make your first connection before freshers week
+                    begins.</p>
+                <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
+                    <a href="#" class="btn btn-primary quiz-btn">Start your quiz</a>
+                    <a href="#features" class="btn btn-secondary">See features</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <footer>
+        <div class="container footer-inner">
+            <div>© 2026 IceLink. Designed for student connection.</div>
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Privacy</a>
+                <a href="#">Contact</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+    </div>
+
+    <script>
+        const quizButtons = document.querySelectorAll('.quiz-btn');
+
+        quizButtons.forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault(); // stops links submitting/reloading
+                alert("Quiz coming soon. Check back soon for updates on when the final website will launch!");
+            });
+        });
+
+        const loginButtons = document.querySelectorAll('.login-btn');
+
+        loginButtons.forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault(); // stops links submitting/reloading
+                alert("Login coming soon. Check back soon for updates on when the final website will launch!");
+            });
+        });
+    </script>
+    
+</body>
+
+</html>
